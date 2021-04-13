@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS321_W2D2_StudentAPI", "CS321_W2D2_StudentAPI\CS321_W2D2_StudentAPI.csproj", "{7CA8D408-4D50-49D6-93CE-0453014F3286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS321_W2D2_StudentAPI.Tests", "CS321_W2D2_StudentAPI.Tests\CS321_W2D2_StudentAPI.Tests.csproj", "{2DB95D95-1CC4-4678-AF2D-392BA3E32118}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CA8D408-4D50-49D6-93CE-0453014F3286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CA8D408-4D50-49D6-93CE-0453014F3286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CA8D408-4D50-49D6-93CE-0453014F3286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CA8D408-4D50-49D6-93CE-0453014F3286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DB95D95-1CC4-4678-AF2D-392BA3E32118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DB95D95-1CC4-4678-AF2D-392BA3E32118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DB95D95-1CC4-4678-AF2D-392BA3E32118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DB95D95-1CC4-4678-AF2D-392BA3E32118}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

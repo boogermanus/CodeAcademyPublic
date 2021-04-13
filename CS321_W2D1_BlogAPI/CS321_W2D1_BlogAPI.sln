@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS321_W2D1_BlogAPI", "CS321_W2D1_BlogAPI\CS321_W2D1_BlogAPI.csproj", "{44A8CB66-6583-44FD-9343-6C696C4B9CA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS321_W2D1_BlogAPI.Tests", "CS321_W2D1_BlogAPI.Tests\CS321_W2D1_BlogAPI.Tests.csproj", "{97AB61F7-A224-45B7-B266-ED16F6BFF35A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44A8CB66-6583-44FD-9343-6C696C4B9CA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44A8CB66-6583-44FD-9343-6C696C4B9CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44A8CB66-6583-44FD-9343-6C696C4B9CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44A8CB66-6583-44FD-9343-6C696C4B9CA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97AB61F7-A224-45B7-B266-ED16F6BFF35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97AB61F7-A224-45B7-B266-ED16F6BFF35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97AB61F7-A224-45B7-B266-ED16F6BFF35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97AB61F7-A224-45B7-B266-ED16F6BFF35A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
