@@ -1,0 +1,46 @@
+﻿1. Add the Microsoft.EntityFrameworkCore.Sqlite package to the project.
+1. Add an Author model with the following properties: Id, FirstName, LastName, BirthDate, and a Books collection.
+1. Add an Author navigation property to Book.
+1. Configure Json serialization settings in Startup ConfigureServices.
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(optionsBuilder =>
+                {
+                    optionsBuilder.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
+
+1. Add a DbSet<Book> to BookContext.
+1. Add a DbSet<Author> to BookContext.
+1. Configure a Sqlite db in BookContext OnConfiguring.
+
+            optionsBuilder.UseSqlite("Data Source=books.db");
+
+1. In BookContext OnModelCreating, configure some seed data for books and authors.
+
+            modelBuilder.Entity<Author>().HasData(
+               new Author { Id = 1, FirstName = "John", LastName = "Steinbeck", BirthDate = new DateTime(1902, 2, 27)  },
+               new Author { Id = 2, FirstName = "Stephen", LastName = "King", BirthDate = new DateTime(1947, 9, 21) }
+            );
+
+            modelBuilder.Entity<Book>().HasData(
+               new Book { Id = 1, Title = "The Grapes of Wrath", AuthorId = 1 },
+               new Book { Id = 2, Title = "Cannery Row", AuthorId = 1 },
+               new Book { Id = 3, Title = "The Shining", AuthorId = 2 }
+            );
+
+1. Create an IAuthorService and implement it in AuthorService.
+
+1. Create an AuthorsController to allow access to author data.
+
+1. Make sure your services and BookContext are registered for dependency injection.
+
+1. Create an InitialCreate migration and update the database. Make sure you're in project folder!
+
+    dotnet ef migrations add InitialCreate
+    dotnet ef database update
+    
+1. Make Authors return the list of books, too, by using Include().
+
+
+1. Try adding a book with an invalid AuthorId.

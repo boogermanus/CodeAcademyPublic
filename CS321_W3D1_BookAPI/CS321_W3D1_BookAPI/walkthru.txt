@@ -1,0 +1,116 @@
+﻿1. Add EntityFrameworkCore.Sqlite and EntityFrameworkCore.Sqlite.Design packages
+
+2. Add Data folder
+
+3. Create ToDoContext class
+
+using System;
+using CS321_W3D1_ToDoAPI_EF.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace CS321_W3D1_ToDoAPI_EF.Data
+{
+    public class ToDoContext : DbContext
+    {
+        public DbSet<ToDo> ToDos { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=ToDos.db");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ToDo>().HasData(
+               new ToDo { Id = 1, Description = "Laundry" },
+               new ToDo { Id = 2, Description = "Shopping" },
+               new ToDo { Id = 3, Description = "Mow lawn" }
+            );
+        }
+        
+    }
+
+
+}
+
+4. In Startup, AddDbContext.
+
+5. In Startup, AddScoped<IToDoService, >
+
+6. Change ToDoService to use db context
+
+using System.Collections.Generic;
+using System.Linq;
+using CS321_W3D1_ToDoAPI_EF.Data;
+using CS321_W3D1_ToDoAPI_EF.Models;
+
+namespace CS321_W3D1_ToDoAPI_EF.Services
+{
+    public class ToDoService : IToDoService
+    {
+        private readonly ToDoContext _todoContext;
+
+        public ToDoService(ToDoContext todoContext)
+        {
+            _todoContext = todoContext;
+        }
+
+        public ToDo Add(ToDo todo)
+        {
+            // store in the list of ToDos
+            _todoContext.ToDos.Add(todo);
+            _todoContext.SaveChanges();
+            // return the new ToDo with Id filled in
+            return todo;
+        }
+
+        public ToDo Get(int id)
+        {
+            // return the specified ToDo or null if not found
+            return _todoContext.ToDos.Find(id);
+        }
+
+        public IEnumerable<ToDo> GetAll()
+        {
+            return _todoContext.ToDos.ToList();
+        }
+
+        public ToDo Update(ToDo updatedToDo)
+        {
+            // get the ToDo object in the current list with this id 
+            var currentToDo = _todoContext.ToDos.Find(updatedToDo.Id);
+
+            // return null if todo to update isn't found
+            if (currentToDo == null) return null;
+
+            // copy the property values from the changed todo into the
+            // one in the db. NOTE that this is much simpler than individually
+            // copying each property.
+            _todoContext.Entry(currentToDo)
+                .CurrentValues
+                .SetValues(updatedToDo);
+
+            // update the todo and save
+            _todoContext.ToDos.Update(currentToDo);
+            _todoContext.SaveChanges();
+            return currentToDo;
+        }
+
+        public void Remove(ToDo todo)
+        {
+            _todoContext.ToDos.Remove(todo);
+            _todoContext.SaveChanges();
+        }
+
+    }
+}
+
+
+7. Run migration to create initial database (only once)
+
+
+
+
+
