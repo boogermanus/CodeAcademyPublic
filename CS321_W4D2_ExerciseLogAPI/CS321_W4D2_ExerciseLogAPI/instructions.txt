@@ -1,0 +1,234 @@
+﻿// NOTE: deliberately giving them less to start with to force them to go through the basic steps.
+
+/*
+  What we're building
+
+
+*/
+
+1. Add a Core project.
+   1. Right-click on the solution and choose Add > Add New Project. Choose Class Library.
+   1. Name it CS321_W4D2_ExerciseLogAPI.Core
+   1. Remove the Class1.cs file.
+1. Add an Infrastructure project.
+   1. Right-click on the solution and choose Add > Add New Project. Choose Class Library.
+   1. Name it CS321_W4D2_ExerciseLogAPI.Infrastructure
+   1. Remove the Class1.cs file.
+1. In ExerciseLogAPI, add references to Core and Infrastructure.
+1. In Infrastructure, add a reference to Core.
+1. In Infrastructure, add the packages necessary to use Sqlite and Entity Framework Core.
+   1. Add the following packages:
+      1. Microsoft.EntityFrameworkCore
+      1. Microsoft.EntityFrameworkCore.Design
+      1. Microsoft.EntityFrameworkCore.Sqlite
+      1. Wait a few moments while the packages are added and accept the license agreements.
+1. In Core, add a Models folder.
+1. Let's build out the domain model for our application. In the Models folder, add the following classes:
+   1. Add a class called ActivityType. This will define the types of activities we can record. Note the use of an enum for RecordType. This will indicate which fields are applicable for an activity.
+   ```csharp
+    public enum RecordType
+    {
+        DurationOnly, // only record duration
+        DurationAndDistance // record duration and distance
+    }
+
+    public class ActivityType
+    {
+        public int Id { get; set;  }
+        public string Name { get; set; }
+        public RecordType RecordType { get; set; }
+    }
+   ```
+   1. Add a class called Activity. This will represent the "doing" of an activity. The class should have the following fields:
+   ```csharp
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public int ActivityTypeId { get; set; }
+        public ActivityType ActivityType { get; set; }
+        public double Duration { get; set; }
+        public double Distance { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public string Notes { get; set; }
+   ```
+   1. Add a User class. It should have the following properties:
+   ```csharp
+        public int Id { get; set; }
+        public ICollection<Activity> Activities { get; set; }
+   ```
+1. In Core, add a Services folder.
+1. In the Services folder, let's define our Repository interfaces that we'll use to retrieve Models.
+   1. Add a new interface called IUserRepository.
+   ```csharp
+        // Create
+        User Add(User todo);
+        // Read
+        User Get(int id);
+        // Update
+        User Update(User todo);
+        // Delete
+        void Remove(User todo);
+        // List
+        IEnumerable<User> GetAll();
+   ```
+   1. Add a new interface called IActivityTypeRepository, with the same methods as User but for ActivityType.
+   1. Add a new interface called IActivityRepository, , with the same methods as User but for Activity.
+1. In the Services folder, let's define Services for each of our entities. Each service will have the corresponding repository injected.
+   1. Add a new class called UserService. 
+      1. Inject an IUserRepository in the constructor:
+      ```csharp
+        private IUserRepository _userRepo;
+
+        public UserService(IUserRepository userRepo)
+        {
+            _userRepo = userRepo;
+        }
+      ```
+      1. Add the basic CRUDL methods and delegate to the corresponding methods in the repository. See previous project for reference.
+   1. Add a new class called ActivityTypeService. Repeat the steps you performed for UserService, but for ActivityType.
+   1. Add a new class called ActivityService. Repeat the steps you performed for UserService, but for Activity. NOTE: Make sure you add a Using for your Models.Activity and not the Activity class in System.Diagnostics.
+1. In the previous step, we created services but didn't define interfaces for them. Let's use a Visual Studio shortcut to create them.
+   1. Open UserService.cs. 
+   1. Right click on the class name UserService.
+   1. Choose _Quick Fix_ and then _Extract Interface_.
+   1. The dialog will suggest the name IUserService and by default will select all of the methods. At this point you could choose which methods to include. In our case, we want all of them so you don't have to make any changes.
+   1. Click Ok to accept this. A new file will be created.
+      > NOTE: On Mac, the dialog may not close automatically and clicking Cancel may not close it. Click the red X to close it.
+   1. Repeat the steps above to extract interfaces for ActivityTypeService and ActivityService.
+1. In Infrastructure, add a Data folder.
+1. In the Data folder, add a new class called AppDbContext. Make the new class inherit from DbContext.
+   1. Refer to the DbContexts you used in your previous projects for hints.
+   1. Add DbSets for Activities, ActivityTypes, and Users.
+   1. Add an OnModelCreating method and add some initial data:
+   ```csharp
+            modelBuilder.Entity<ActivityType>().HasData(
+                new ActivityType { Id = 1, Name = "Running", RecordType = RecordType.DurationAndDistance },
+                new ActivityType { Id = 2, Name = "Weights", RecordType = RecordType.DurationOnly },
+                new ActivityType { Id = 3, Name = "Walking", RecordType = RecordType.DurationAndDistance }
+            );
+
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, Name = "Test User" }
+            );
+
+            // TODO: configure some seed data in the books table
+            modelBuilder.Entity<Activity>().HasData(
+                new Activity { Id = 1, UserId =1, ActivityTypeId = 1, Date = new DateTime(2019, 6, 19), Distance = 3, Duration = 30, Notes = "Hot!!!!"}
+            );
+   ```
+   1. Add an OnConfiguring method and use the optionsBuilder to configure a Sqlite database named ExerciseLog.db.
+1. Let's implement your IRepository interfaces in the Infrastructure project.
+   1. Add a new class in the Data folder called UserRepository.
+      1. Make the class inherit from IUserRepository. Add the appropriate Using so you can use IUserRepository.
+      1. Add a constructor and inject the AppDbContext.
+         > TIP: type _ctor_ and then press tab to scaffold a new constructor.
+         ```csharp
+           private readonly AppDbContext _dbContext;
+
+           public UserRepository(AppDbContext dbContext)
+           {
+               _dbContext = dbContext;
+           }
+        ```
+      1. Refer to the previous project and add the code necessary to implement the CRUDL methods.
+      1. What related entities might you need to Include() when retrieving Users?
+   1. Add a new class called ActivityTypeRepository.
+      1. Repeat the steps you used for UserRepository, but for ActivityType.
+   1. Add a new class called ActivityRepository.
+      1. Repeat the steps you used for UserRepository, but for Activity.
+      1. What related entities might you need to Include()?
+1. Now let's add controllers to our API project.
+   1. In the Controllers folder, add a new UsersController class. 
+      1. Right click the Controllers folder, choose Add > Add New File.
+      1. Choose the Web API Controller template under ASP.NET Core.
+      1. Name it UsersController.
+   1. In the Controllers folder, add a new ActivitiesController class. 
+      1. Right click the Controllers folder, choose Add > Add New File.
+      1. Choose the Web API Controller template under ASP.NET Core.
+      1. Name it UsersController.
+   1. NOTE: We're not going to implement an ActivityTypes controller for this exercise. We'll assume that ActivityTypes are pre-defined. But you can add one if you'd like more practice.
+1. In ExerciseLogAPI, you'll find that ApiModels have been scaffolded for you, along with some mapping extensions.
+   1. In ActivityMappingExtensions, map the appropriate properties between ActivityModel and Activity
+      1. Make ActivityType a string property that will contain the name of the activity type 
+      1. Make User a string property that will contain the user's name
+    1. In ActivityTypeMappingExtensions, map the appropriate properties between ActivityTypeModel and ActivityType
+    1. In UserMappingsExtensions, map the appropriate properties between UserModel and User
+1. Let's implement the UsersController.
+   1. Add a constructor
+      > TIP: type _ctor_ and then press tab to scaffold a new constructor.
+      1. Modify the controller to inject an IUserService and store it in a field.
+        ```csharp
+        private IUserService _userService;
+
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+        ```
+      1. Based on your previous projects, implement the basic CRUDL actions using the UserRepository.
+1. Let's implement the ActivitiesController.
+   1. Repeat the steps that you performed for UsersController, but using IActivityRepository.
+1. Now let's set up our database.
+   1. In the terminal, CD into the *CS321_W4D2_ExerciseLogAPI.Infrastructure* folder.
+   1. Create the initial migration.
+      > dotnet ef migrations add Initial
+   1. Update the database.
+      > dotnet ef database update
+   1. This should create the ExerciseLog.db file with initial data defined in your DbContext.
+1. Now let's try running our API and try the GET /api/activities route. Did you get an error message? What did we forget to do?
+   1. In Startup.cs, configure AppDbContext for dependency injection.
+   ```csharp
+            services.AddDbContext<AppDbContext>();
+   ```
+   1. In Startup.cs, configure the UserRepository and UserService interfaces for dependency injection.
+   ```csharp
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+   ```
+   1. Repeat the previous step for Activity and ActivityType.
+1. Try running your API again and try the GET /api/activities route. 
+   1. Do you get the expected data? 
+   1. Did your ActivityModel mappings work correctly?
+   1. Try to create, update and remove an activity.
+1. Now let's add some validation to our models.
+   1. In ActivityModel...
+      1. Make Date, UserId, and ActivityTypeId [Required].
+1. We'd like Distance to be required in some cases (like Running), but not others (like Weights). Where should we implement this logic?
+   1. In ActivityService, let's add some logic to check this.
+      1. To do this check, we're going to have to retrieve an ActivityType object. This means our ActivityService needs an IActivityTypeRepository in _addition_ to IActivityRepository.
+         1. Add another parameter to the ActivityService constructor so the IActivityTypeRepostory can be injected.
+            ```csharp
+        private IActivityRepository _activityRepo;
+        private IActivityTypeRepository _activityTypeRepo;
+
+        public ActivityService(IActivityRepository activityRepo, IActivityTypeRepository activityTypeRepo)
+        {
+            _activityRepo = activityRepo;
+            _activityTypeRepo = activityTypeRepo;
+        }
+            ```
+      1. Add this above _activityRepo.Add() line:
+      ```csharp
+            // retrieve the ActivityType so we can check
+            var activityType = _activityTypeRepo.Get(Activity.ActivityTypeId);
+            // for a DurationAndDistance activity, you must supply a Distance
+            if (activityType.RecordType == RecordType.DurationAndDistance
+                && Activity.Distance <= 0)
+            {
+                throw new ApplicationException("You must supply a Distance for this activity.");
+            }
+      ```
+1. Test your API. Do your validation rules work?
+   1. Try leaving out a required field.
+   1. Try leaving out a duration.
+   1. Try leaving out distance for Running. Should fail.
+   1. Try leaving out distance for Weights. Should work.
+
+// Push yourself further...
+
+1. We should not allow the user to update an activity to a zero or negative distance or duration. 
+   1. Add these checks to the Update method in the ActivityService.
+   1. These checks are the same as the ones performed in Add(). How can we avoid this repetition?
+1. One Activity should not overlap with another, with regard to date and time. Add a check to make sure they don't.
+   1. HINT: You have to query the Activities to find out.
+   1. HINT: You have to use the Date of the activity plus the duration (in minutes) of the activity.

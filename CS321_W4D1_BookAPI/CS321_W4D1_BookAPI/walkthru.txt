@@ -1,0 +1,162 @@
+﻿
+1. Note that there is a new folder called ApiModels. It contains classes for AuthorModel, BookModel, and PublisherModel. The suffix "Model" has been added to make it clearer that these are different from the domain entities Book, Author, and Publisher.
+1. Open the AuthorModel class and make it look like the class below.
+
+    public class AuthorModel
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public ICollection<BookModel> Books { get; set; }
+    }
+    
+    
+1. Open the BookModel and make it look like the class below. Note that the **Author** is a string.
+
+    public class BookModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string OriginalLanguage { get; set; }
+        public string Genre { get; set; }
+        public int PublicationYear { get; set; }
+
+        public int AuthorId { get; set; }
+        public string Author { get; set; }
+
+        public int PublisherId { get; set; }
+    }
+
+1. Open the AuthorMappingExtensions class. Add the following to the ToApiModel() method:
+
+            return new AuthorModel
+            {
+                Id = author.Id,
+                BirthDate = author.BirthDate,
+                FirstName = author.FirstName,
+                LastName = author.LastName,
+            };
+
+1. In the AuthorMappingExtensions class, add the following to the ToDomainModel() method:
+
+            return new Author
+            {
+                Id = authorModel.Id,
+                BirthDate = authorModel.BirthDate,
+                FirstName = authorModel.FirstName,
+                LastName = authorModel.LastName,
+            };
+
+1. Open the BookMappingExtensions class. Add the following to the ToApiModel() method. Note how the Publisher and Author properties are concatenated strings.
+
+            return new BookModel
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Genre = book.Genre,
+                OriginalLanguage = book.OriginalLanguage,
+                PublicationYear = book.PublicationYear,
+                PublisherId = book.PublisherId,
+                AuthorId = book.AuthorId,
+                // concatenate the author's name properties and use it as the value of Author. Use null
+                // if the Author is null.
+                Author = book.Author != null 
+                    ? book.Author.LastName + ", " + book.Author.FirstName 
+                    : null
+            };
+
+1. In the BookMappingExtensions class, add the following to the ToDomainModel() method:
+
+            return new Book
+            {
+                Id = bookModel.Id,
+                Title = bookModel.Title,
+                Genre = bookModel.Genre,
+                OriginalLanguage = bookModel.OriginalLanguage,
+                PublicationYear = bookModel.PublicationYear,
+                PublisherId = bookModel.PublisherId,
+                AuthorId = bookModel.AuthorId,
+                // Note that we don't set the Publisher or Author object properties. Setting 
+                // the PublisherId and AuthorId fields is enough.
+            };
+
+
+
+1. In the Get() action, convert the domain models into ApiModels:
+
+            var bookModels = _bookService
+                .GetAll()
+                .ToApiModels(); // convert Books to BookModels
+
+
+1. In the Get(int id) action, convert the domain model into an ApiModel:
+
+            var book = _bookService
+                .Get(id)
+                .ToApiModel();
+
+1. In the Post() action, convert the BookModel into a Book domain object:
+
+                _bookService.Add(newBook.ToDomainModel());
+
+1. In the Put() action, convert the BookModel into a Book domain object:
+
+            var book = _bookService.Update(updatedBook.ToDomainModel());
+
+
+1. Add a nested route that returns all books for an author
+
+        // TODO: Add a route that returns all books for an author
+        // GET api/author/{authorId}/books
+        [HttpGet("/api/authors/{authorId}/books")]
+        public IActionResult GetBooksForAuthor(int authorId)
+        {
+            // TODO: convert domain models to apimodels
+            var bookModels = _bookService
+                .GetBooksForAuthor(authorId)
+                .ToApiModels();
+
+            return Ok(bookModels);
+        }
+
+
+
+
+
+// second part of exercise (class project)
+
+
+
+
+1. Add Publisher property to BookModel.
+1. Modify BookMappingExtensions to map publisher to a string.
+                // concatenate the publisher name and city and use it as the value of Publisher. Use null 
+                // if Publisher is null.
+                Publisher = book.Publisher != null 
+                    ? book.Publisher.Name + ", " + book.Publisher.HeadQuartersLocation 
+                    : null,
+
+1. Add a service method called GetBooksForPublisher(int publisherId) and make it return books for a publisher.
+
+1. Add a nested route to BooksController to fetch books for a publisher:
+
+   // GET /publishers/{publisherId}/books
+ 
+1. Add a PublisherService with the basic CRUDL operations for publishers. The domain classes and database are already set up for you.
+
+1. Add a PublishersController that lets you do the basic CRUDL operations.
+
+1. Add a PublisherModel.
+
+    public class PublisherModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int FoundedYear { get; set; }
+        public string CountryOfOrigin { get; set; }
+        public string HeadQuartersLocation { get; set; }
+        public ICollection<BookModel> Books { get; set; }
+    }
+
+1. Complete the PublisherMappingExtensions class that maps Publisher domain model to PublisherModel and back.
