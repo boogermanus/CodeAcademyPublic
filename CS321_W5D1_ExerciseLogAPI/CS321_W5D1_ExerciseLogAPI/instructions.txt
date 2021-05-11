@@ -1,0 +1,108 @@
+﻿1. In Core project, modify the User class.
+   1. Make it inherit from IdentityUser.
+   ```csharp
+      public class User : IdentityUser
+   ```
+   1. Resolve namespace problems by adding a reference to Microsoft.Extensions.Identity.Stores
+   1. Remove the Id property, since it will be inherited from IdentityUser. Note that the Id type is now string rather than int.
+1. In the Infrastructure project, add the new package called Microsoft.AspNetCore.Identity.EntityFrameworkCore.
+1. In the Infrastructure project, open the AppDbContext class.
+   1. Make it inherit from IdentityDbContext.
+   ```csharp
+      public class AppDbContext : IdentityDbContext
+   ```
+   1. Resolve namespace issues.
+1. In Startup ConfigureServices, add Identity services.
+   ```csharp
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>(); 
+    ```
+1. Create intial migration and update database.
+   1. Look at db in db browser. Note the AspNet tables.
+
+
+
+
+1. In Startup Configure, add authentication middleware. Place this line immediately before UseMvc().
+   ```csharp
+         app.UseAuthentication(); 
+   ```
+1. Note that there is a new ApiModel called RegistrationModel. This will hold information about new user registrations.
+   ```csharp
+    public class RegistrationModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+   ```
+1. Open the controller AuthController. This controller will be used to handle user signup and login.
+   1. Add a constructor and inject a service of type UserManager<User>. UserManager is provided by the Identity services we added in ConfigureServices. The User class in UserManager<User> is our User domain class.
+   ```csharp
+        private readonly UserManager<User> _userManager;
+        
+        public AuthController(UserManager<User> userManager)
+        {
+            _userManager = userManager;
+        }
+   ```
+   1. Add a Registration action that can be used to create a new user. It will be called via the route POST api/auth/register. It will take a RegistrationModel that contains new user information.
+   ```csharp
+        // POST api/values
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody]RegistrationModel registration)
+        {
+            // create a new domain user and email, name, etc
+            var newUser = new User
+            {
+                UserName = registration.Email,
+                Email = registration.Email,
+                FirstName = registration.FirstName,
+                LastName = registration.LastName
+                // note that we do NOT assign password. Instead of a Password property, there is
+                // PaswordHashed, which will be assigned when we create the user. It will store
+                // the password in a secure form.
+            };
+            // use UserManager to create a new User. Pass in the password so it can be hashed.
+            var result = await _userManager.CreateAsync(newUser, registration.Password);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return BadRequest(ModelState);
+        }
+      ```
+1. Run your API and let's test creating a new user.
+   1. In Postman, POST the following JSON to /api/auth/register
+      ```json
+{
+    "firstName": "test",
+    "lastName": "test",
+    "email": "test@test.com",
+    "password": "Testing123!"
+}
+      ```
+   1. You should receive a status 200 OK if everything worked successfully.
+   1. Open the exerciseLog.db file and browse the data. You sould see a new record in AspNetUser. TODO: add section on Sqlite browser.
+
+
+
+
+
+
+1. Add JWT to Startup ConfigureServices
+
+1. Set secrety key in appsettings.json
+
+1. In AuthController, add IConfiguration service so we can retrieve secret key
+
+1. Add the Login action and related methods
+
+1. Add Authorize attribute on Activities Controller so we can test
+
+1. Test in Postman

@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS321_W5D2_BlogAPI.Core", "CS321_W5D2_BlogAPI.Core\CS321_W5D2_BlogAPI.Core.csproj", "{CCABB340-187E-4850-9468-DF7DD4175CEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS321_W5D2_BlogAPI.Infrastructure", "CS321_W5D2_BlogAPI.Infrastructure\CS321_W5D2_BlogAPI.Infrastructure.csproj", "{2B21E912-C173-4A92-8729-2BBC76743BF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS321_W5D2_BlogAPI", "CS321_W5D2_BlogAPI\CS321_W5D2_BlogAPI.csproj", "{59771C2F-3E98-4C02-8B8D-72D8E18201FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCABB340-187E-4850-9468-DF7DD4175CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCABB340-187E-4850-9468-DF7DD4175CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCABB340-187E-4850-9468-DF7DD4175CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCABB340-187E-4850-9468-DF7DD4175CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B21E912-C173-4A92-8729-2BBC76743BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B21E912-C173-4A92-8729-2BBC76743BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B21E912-C173-4A92-8729-2BBC76743BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B21E912-C173-4A92-8729-2BBC76743BF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59771C2F-3E98-4C02-8B8D-72D8E18201FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59771C2F-3E98-4C02-8B8D-72D8E18201FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59771C2F-3E98-4C02-8B8D-72D8E18201FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59771C2F-3E98-4C02-8B8D-72D8E18201FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

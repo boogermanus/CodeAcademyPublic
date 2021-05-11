@@ -1,0 +1,31 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp", "QuizApp\QuizApp.csproj", "{D00FBBEA-3DCA-4582-A8DC-31DD4DC94712}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp.Core", "QuizApp.Core\QuizApp.Core.csproj", "{F3831EAD-7B71-4C2C-82C8-09ADA10D0DC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp.Infrastructure", "QuizApp.Infrastructure\QuizApp.Infrastructure.csproj", "{F80FF157-103E-4D3E-9F2C-8ED92493CF27}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{277D3587-93C5-4409-8756-71FC766F404F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D00FBBEA-3DCA-4582-A8DC-31DD4DC94712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D00FBBEA-3DCA-4582-A8DC-31DD4DC94712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D00FBBEA-3DCA-4582-A8DC-31DD4DC94712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D00FBBEA-3DCA-4582-A8DC-31DD4DC94712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3831EAD-7B71-4C2C-82C8-09ADA10D0DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3831EAD-7B71-4C2C-82C8-09ADA10D0DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3831EAD-7B71-4C2C-82C8-09ADA10D0DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3831EAD-7B71-4C2C-82C8-09ADA10D0DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F80FF157-103E-4D3E-9F2C-8ED92493CF27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80FF157-103E-4D3E-9F2C-8ED92493CF27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80FF157-103E-4D3E-9F2C-8ED92493CF27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80FF157-103E-4D3E-9F2C-8ED92493CF27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.10" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="ApiModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuizApp.Core\QuizApp.Core.csproj" />
+    <ProjectReference Include="..\QuizApp.Infrastructure\QuizApp.Infrastructure.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="quizapp.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
