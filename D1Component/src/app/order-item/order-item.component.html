@@ -1,0 +1,8 @@
+<li>
+    <p>{{order.product}}</p>
+    <p *ngIf="order.delivered" style="color: green">Delivered</p>
+    <p *ngIf="!order.delivered" style="color: red">Not Delivered</p>
+
+    <!-- do the same thing but without *ngif! -->
+    <!-- <p [ngStyle]="{'color': getTextColor(order)}">{{getDeliveredText(order)}}</p> -->
+</li>
