@@ -1,0 +1,14 @@
+<form action="." method="post" class="hform">
+  <fieldset>
+    <legend>Student form</legend>
+    <p><label>First Name</label>
+      <input [(ngModel)]="newStudent.firstName" type="text" name="firstname" value=""></p>
+    <p><label>Last Name</label>
+      <input [(ngModel)]="newStudent.lastName" type="text" name="lastname" value=""></p>
+    <p><label>Grade</label>
+      <input [(ngModel)]="newStudent.grade" type="text" name="grade" value=""></p>
+    <p><label>Address</label>
+      <input [(ngModel)]="newStudent.address" type="text" name="address" value=""></p>
+  </fieldset>
+  <p><button (click)="onSave($event)" type="submit" name="submit" value="Save"> Save </button></p>
+</form>

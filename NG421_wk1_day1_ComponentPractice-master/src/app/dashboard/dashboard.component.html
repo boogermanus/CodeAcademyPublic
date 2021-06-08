@@ -1,0 +1,53 @@
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Dashboard <small>Statistics Overview</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-dashboard"></i> Dashboard
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Comments   -->
+            <app-comments></app-comments>
+            <!-- Comments   -->
+
+            <!-- Tasks   -->
+            <app-tasks></app-tasks>
+            <!-- Tasks   -->
+
+            <!-- Orders   -->
+            <app-orders></app-orders>
+            <!-- Orders   -->
+
+            <!-- Tickets   -->
+            <app-tickets></app-tickets>
+            <!-- Tickets   -->
+        </div>
+
+        <!-- AreaChart   -->
+        <app-area-chart></app-area-chart>
+        <!-- AreaChart   -->
+
+        <div class="row">
+            <!-- DonutChart   -->
+            <app-donut-chart></app-donut-chart>
+            <!-- DonutChart   -->
+            <div class="col-lg-4">
+                <!-- TasksPanel   -->
+                <app-tasks-panel></app-tasks-panel>
+                <!-- TasksPanel   -->
+            </div>
+            <div class="col-lg-4">
+                <!-- TransactionsPanel   -->
+                <app-transactions-panel></app-transactions-panel>
+                <!-- TransactionsPanel   -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div>
+    <h1>Student</h1>
+    <h1>{{student.firstName}} {{student.lastName}}</h1>
+    <h1>{{student.address}}</h1>
+    <div><img src={{student.image}}></div>
+    <div>{{student.grade}}</div>
+    <span *ngIf="student.grade === 'F'"> - You are failing</span>
+</div>

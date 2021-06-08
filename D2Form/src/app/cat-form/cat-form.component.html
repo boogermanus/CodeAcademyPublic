@@ -1,0 +1,41 @@
+<form class="ml-2">
+  <fieldset>
+    <legend>Cat form</legend>
+    <div class="form-group row">
+      <label class="col-sm-1">Name</label>
+      <div class="col-sm-2">
+        <input name="name" (change)="nameChanged($event)" class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-1">Age</label>
+      <div class="col-sm-2">
+        <input type="number" name="age" [(ngModel)]="newCat.age" class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-1">Breed</label>
+      <div class="col-sm-2">
+        <select name="breed" [(ngModel)]="newCat.breed" class="form-control">
+          <option value="">--choose--</option>
+          <option value="Persian">Persian</option>
+          <option value="Bengal">Bengal</option>
+          <option value="American Shorthair">American Shorthair</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class='col-sm-1'>Gender</label>
+      <div class="col-sm-2">
+        <input type="radio" name="gender" value="male" [(ngModel)]="newCat.gender"> Male |
+        <input type="radio" name="gender" value="female" [(ngModel)]="newCat.gender"> Female |
+        <input type="radio" name="gender" value="other" [(ngModel)]="newCat.gender"> Other
+      </div>
+    </div>
+  </fieldset>
+</form>
+<div class="form-group row offset-1">
+  <button class="btn btn-primary" (click)="save()" name="submit" value="Save"> Save </button>
+</div>
+
+<app-message [message]="formMessage"></app-message>
