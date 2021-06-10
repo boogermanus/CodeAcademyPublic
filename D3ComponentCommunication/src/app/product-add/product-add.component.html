@@ -1,0 +1,12 @@
+<form method="POST" action=".">
+    <fieldset>
+        <legend>Add Product</legend>
+        <label>Name</label><br>
+        <input type="text" name="name" [(ngModel)]="newProduct.name"><br>
+        <label>Description</label><br>
+        <input type="text" name="description" [(ngModel)]="newProduct.description"><br>
+        <label>Price($)</label><br>
+        <input type="number" name="price" [(ngModel)]="newProduct.price" style="width: 50px"><br>
+        <button type="submit" (click)="add()" name="submit">Save</button>
+    </fieldset>
+</form>
