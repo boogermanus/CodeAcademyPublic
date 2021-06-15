@@ -1,0 +1,29 @@
+<h1 align="center">{{title}}</h1>
+<div class="form-group row col-md-10 offset-1">
+    <div class="col-md-12">
+        <label>Add a new Todo Item</label>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Add next todo here" [(ngModel)]="todoTitle"
+                (keyup.enter)="addToDo()">
+        </div>
+        <div class="col-md-12">
+            <hr>
+            <ul align="center" class="list-group">
+                <li class="list-group-item" *ngFor="let todo of todoList">
+                    <div class="view">
+                        <label
+                            [ngStyle]="{'text-decoration': todo.isDone ? 'line-through' : 'none' }">{{todo.title}}</label>
+
+                        <div class="float-right">
+                            <label class="mr-2">Complete</label>
+                            <input class="mr-2" type="checkbox" name="done" (click)="complete(todo)">
+                            <label class="mr-2">{{todo.time | date}}</label>
+                            <button type="button" class="btn btn-danger btn-sm"
+                                (click)="deleteToDo(todo)">Delete</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <router-outlet></router-outlet>

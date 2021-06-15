@@ -1,0 +1,33 @@
+    <!-- /.container -->
+    <div id="root">
+
+        <div class="App">
+            <!--<Header>-->
+           <app-header></app-header>
+            <!--</Header>-->
+        
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-3">
+                       <p class="lead">Shop Name</p>
+                        <app-categories></app-categories>
+                   </div>
+                   <div class="col-md-9">
+                       <!--<Carousel>-->
+                       <app-carousel></app-carousel>
+                       <!--</Carousel>-->
+                       <div class="row">
+                           <!--<ProductDetail>-->
+                           <app-product-detail *ngFor="let product of products" [product]="product" (productAdded)="productWasAdded($event)"></app-product-detail>
+                           <!--</ProductDetail>-->      
+                       </div>
+                   </div>
+               </div>
+           </div>
+          
+           <div class="container">
+            <app-footer></app-footer>
+              <!--</Footer>-->
+           </div>
+             </div>
+    </div>
