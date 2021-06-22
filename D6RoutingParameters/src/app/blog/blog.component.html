@@ -1,0 +1,10 @@
+<div>
+    <div>
+        <h1 (dblclick)="isEditing = true" [hidden]="isEditing">{{blog.title}}</h1>
+        <input *ngIf="isEditing" type="text" [(ngModel)]="blog.title" (blur)="isEditing = false">
+    </div>
+    <div>
+        <h2>{{blog.body}}</h2>
+        <button class="btn btn-primary ml-2" (click)="edit()">Edit</button>
+    </div>
+</div>

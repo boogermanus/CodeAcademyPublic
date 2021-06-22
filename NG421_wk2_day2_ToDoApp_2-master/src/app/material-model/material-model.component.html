@@ -1,0 +1,16 @@
+<button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+</button>
+<div mat-dialog-title>
+    <h4 mat-dialog-title>Delete Task</h4>
+</div>
+
+<div mat-dialog-content>
+
+    <p>Do you really want to delete this task?</p>
+</div>
+<div mat-dialog-actions>
+    <button class="btn btn-outline-secondary mr-2" [mat-dialog-close]="'Yes'">Yes</button>
+    <button class="btn btn-outline-secondary" (click)="close()">No</button>
+    
+</div>

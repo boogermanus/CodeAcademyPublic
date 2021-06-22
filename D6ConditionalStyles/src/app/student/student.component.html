@@ -1,0 +1,9 @@
+<div>
+    <h1>Student</h1>
+    <h1 [ngClass]="currentClasses">{{student.firstName}} {{student.lastName}}</h1>
+    <h1 [ngStyle]="currentStyles">{{student.firstName}} {{student.lastName}}</h1>
+    <h1>{{student.address}}</h1>
+    <div *ngIf="!isEditing" (dblclick)="isEditing=true">{{student.grade}}</div>
+    <input (blur)="isEditing=false" *ngIf="isEditing" [(ngModel)]="student.grade">
+    <span *ngIf="student.grade === 'F'"> - You are failing</span>
+</div>

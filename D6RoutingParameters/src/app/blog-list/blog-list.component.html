@@ -1,0 +1,8 @@
+<ul>
+    <li *ngFor="let blog of blogs">
+    <!-- using href will cause the entire app to reload each time and wipe out change -->
+    <a href="blog/{{blog.id}}">{{blog.title}}</a>
+    <!-- using this method will work, but only if you catch the route changes and reload -->
+    <!-- <a [routerLink]="['/blog', blog.id]">{{blog.title}}</a> -->
+    </li>
+</ul>
