@@ -1,0 +1,33 @@
+<h2 align="center">Beers</h2>
+<button mat-raised-button color="primary" (click)="getNewBeer()">New Beer</button>
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" align="center" width="100%">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="tagline">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tagline </th>
+        <td mat-cell *matCellDef="let element"> {{element.tagline}} </td>
+    </ng-container>
+    <ng-container matColumnDef="image_url">
+        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <td mat-cell *matCellDef="let element">
+            <!-- don't use style, class is better -->
+            <!-- <img style="height: 10%;width: 10%;" [src]="element.image_url"> -->
+            <img class="beerimg" [src]="element.image_url">
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="abv">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ABV </th>
+        <td mat-cell *matCellDef="let element"> {{element.abv}} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 15, 25]" showFirstLastButtons></mat-paginator>
+

@@ -1,0 +1,22 @@
+<h2 align="center">Beers</h2>
+<button mat-raised-button color="primary" (click)="getNewBeer()">New Beer</button>
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+        <mat-header-cell mat-sort-header *matHeaderCellDef> {{column.header}} </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            {{column.cell(element)}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="image_url">
+        <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <img [src]="element.image_url">
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="[5, 15, 25]" showFirstLastButtons></mat-paginator>
