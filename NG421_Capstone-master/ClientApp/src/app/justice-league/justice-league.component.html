@@ -1,0 +1,49 @@
+<h1 id="tableLabel">Justice League Members</h1>
+<p *ngIf="!justiceLeagueMembers"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="justiceLeagueMembers">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Alias</th>
+      <th>Age</th>
+      <th>Member Since</th>
+      <th>Active Member?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let s of justiceLeagueMembers">
+      <td>{{ s.id }}</td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.alias }}</td>
+      <td>{{ s.age }}</td>
+      <td>{{ s.memberSince | date: 'shortDate' }}</td>
+      <td>{{ s.isActiveMember ? 'Yes' : 'No' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row">
+  <div class="col-2"><label>Name</label></div>
+  <div class="col-6"><input [(ngModel)]="newMember.name" type="text" placeholder="Name" class="textInput"></div>
+</div>
+<div class="row">
+  <div class="col-2"><label>Alias</label></div>
+  <div class="col-6"><input type="text" [(ngModel)]="newMember.alias" placeholder="Alias" class="textInput"></div>
+</div>
+<div class="row">
+  <div class="col-2"><label>Age</label></div>
+  <div class="col-6"><input type="number" [(ngModel)]="newMember.age" class="smallInput"></div>
+</div>
+<div class="row">
+  <div class="col-2"><label>Member Since</label></div>
+  <div class="col-6"><input type="date" [(ngModel)]="newMember.memberSince"></div>
+</div>
+<div class="row">
+  <div class="col-2"><label>Active Member?</label></div>
+  <div class="col-6"><input type="checkbox" [(ngModel)]="newMember.isActiveMember"></div>
+</div>
+<div class="row">
+  <div class="col-2"><button class="btn btn-primary" (click)="addMember()">Save</button></div>
+</div>

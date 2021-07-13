@@ -1,0 +1,36 @@
+<div class="container">
+    <form #form="ngForm" (ngSubmit)="submit()" [appMustMatch]="['password','confirmPassword']">
+        
+        <h1 class="h3 mb-3">Please Register</h1>
+
+        <input type="text" name="name" [(ngModel)]="user.name" #name="ngModel" placeholder="name" class="form-control"
+            required>
+        <label class="alert alert-danger" *ngIf="!name.valid && name.touched">Name is required</label>
+
+        <input type="email" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="email" required
+            email class="form-control">
+        <label class="alert alert-danger"
+            *ngIf="!!email.errors && email.errors.required && email.touched">Email required</label>
+        <label class="alert alert-danger"
+        *ngIf="!!email.errors && email.errors.email && email.touched">Invalid email address</label>
+
+        <input type="password" name="password" [(ngModel)]="user.password" #password="ngModel" placeholder="password"
+            required minlength="6" class="form-control">
+        <label class="alert alert-danger"
+            *ngIf="!!password.errors && password.errors.required && password.touched">password is required</label>
+        <label class="alert alert-danger"
+            *ngIf="!!password.errors && password.errors.minlength && password.touched">password must be at least 6
+            characters</label>
+
+        <input type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel"
+            required minlength="6" placeholder="confirm password" class="form-control">
+            <label class="alert alert-danger"
+            *ngIf="!!confirmPassword.errors && confirmPassword.errors.required && confirmPassword.touched">confirm password is required</label>
+        <label class="alert alert-danger"
+            *ngIf="!!confirmPassword.errors && confirmPassword.errors.minlength && confirmPassword.touched">confirm password must be at least 6
+            characters</label>
+        <label class="alert alert-danger" *ngIf="!!confirmPassword.errors && confirmPassword.errors.mustMatch && confirmPassword.touched">passwords must match</label>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>

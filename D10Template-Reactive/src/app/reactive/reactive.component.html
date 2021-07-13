@@ -1,0 +1,18 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <h1 class="h3 mb-3">Please Register</h1>
+        <input type="text" placeholder="name" class="form-control" formControlName="name">
+        <label class="alert alert-danger"
+            *ngIf="controlIsRequired(name)">{{getControlErrorMessage('name', name)}}</label>
+        <input type="email" placeholder="email" class="form-control" formControlName="email">
+        <label class="alert alert-danger"
+            *ngIf="controlIsRequired(email)">{{getControlErrorMessage('email', email)}}</label>
+        <input type="password" placeholder="password" class="form-control" formControlName="password">
+        <label class="alert alert-danger"
+            *ngIf="controlIsRequired(password)">{{getControlErrorMessage('password', password)}}</label>
+        <input type="password" placeholder="confirm password" class="form-control" formControlName="confirmPassword">
+        <label class="alert alert-danger"
+            *ngIf="controlIsRequired(confirmPassword)">{{getControlErrorMessage('confirm password', confirmPassword)}}</label>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>

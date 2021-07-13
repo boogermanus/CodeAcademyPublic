@@ -1,0 +1,8 @@
+<p>
+  Start editing to see some magic happen 😊
+</p>
+  <button (click)="authenticate()" [disabled]="authClicked">Authenticate</button>
+  <br>
+  <p>Add Hero</p>
+  <input type="text" (keyup.enter)="addHero($event)" [disabled]="!authClicked">
+<div *ngFor="let hero of heroes">{{hero.name}}<div>

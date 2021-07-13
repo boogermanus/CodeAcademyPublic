@@ -1,0 +1,23 @@
+<h1 id="tableLabel">Teachers</h1>
+
+<p *ngIf="!teachers"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="teachers">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let s of teachers">
+      <td>{{ s.firstName }}</td>
+      <td>{{ s.lastName }}</td>
+    </tr>
+  </tbody>
+</table>
+First Name
+<input [(ngModel)]="newTeacher.firstName" name="firstName" />
+Last Name
+<input [(ngModel)]="newTeacher.lastName" name="lastName" />
+<button (click)="save()">Save</button>
